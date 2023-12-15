@@ -3,12 +3,13 @@ import get from './httpsPromise.js';
 import fs from 'fs'
 let games = [];
 let progress = 0;
-let timer
+let timer = 0;
 
 let listOptions = JSON.parse(fs.readFileSync("./generator script/list_options.json"));
-let progressCap = listOptions.games_to_recommend.length * 2;
-listOptions.games_to_recommend.forEach((universeId, key) => {
+let progressCap = Object.entries(listOptions.games_to_recommend).length * 2;
+Object.entries(listOptions.games_to_recommend).forEach(([key, universeId]) => {
 	for (let i=0; i<2; i++) {
+		timer++;
 		setTimeout(() => {
 			get({host: `games.roblox.com`, agent: false, path: `/v1/games/recommendations/game/${universeId}?PaginationKey=startRowIndex_${i * 10}%2Cversion_&MaxRows=5000&IsTruncatedResultsEnabled=false`})
 			.then(res2 => {
@@ -42,6 +43,6 @@ listOptions.games_to_recommend.forEach((universeId, key) => {
 					fs.writeFileSync("./final_listv2.json", JSON.stringify(games, null, 2));
 				}
 			})
-		}, 2000 * key);
+		}, 600 * timer);
 	}
 })

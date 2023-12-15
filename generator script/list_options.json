@@ -1,17 +1,21 @@
 {
-	"games_to_recommend": [
-		2765784373,
-		1858442722,
-		3813107352,
-		1998835206,
-		4826476142,
-		3202699936,
-		2132866904,
-		4126908979,
-		3676769167,
-		78351145,
-		4092838262
-	],
+	"games_to_recommend": {
+		"phighting": 2765784373,
+		"randomizer": 1858442722,
+		"bombline": 3813107352,
+		"itemasylum": 1998835206,
+		"dingus": 4826476142,
+		"untitledtaggame": 3202699936,
+		"frontlines": 2132866904,
+		"parkourreborn": 4126908979,
+		"skengines": 3676769167,
+		"superbombsurvival": 78351145,
+		"buildaplanetocrash": 4092838262,
+		"digtochina": 3247673617,
+		"rapabilitytest": 3564089422,
+		"HOURS": 2032465638,
+		"blackout": 3326279937
+	},
 	"elimination_phase": {
 		"blacklist": [
 			"huggy",
