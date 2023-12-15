@@ -38,7 +38,7 @@ async function makeGameDiv(value) {
 		trueGameDiv.querySelector(".game-text").textContent = value.n;
 		trueGameDiv.title = value.n;
 		
-		fetch(`http://localhost:8010/proxy/v1/games/icons?universeIds=${value.uid}&returnPolicy=PlaceHolder&size=150x150&format=Png&isCircular=false`, {mode: 'cors'}).then(async response => {
+		fetch(`https://thumbnails.roblox.com/v1/games/icons?universeIds=${value.uid}&returnPolicy=PlaceHolder&size=150x150&format=Png&isCircular=false`, {mode: 'cors'}).then(async response => {
 			response.json().then(async j => {
 				trueGameDiv.querySelector(".game-thumbnail").src = j.data[0].imageUrl;
 			});
