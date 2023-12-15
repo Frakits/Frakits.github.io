@@ -37,12 +37,7 @@ async function makeGameDiv(value) {
 		trueGameDiv.querySelector(".game-score-text").textContent = `score ${value.scr.toFixed(2)}`
 		trueGameDiv.querySelector(".game-text").textContent = value.n;
 		trueGameDiv.title = value.n;
-		
-		fetch(`https://thumbnails.roblox.com/v1/games/icons?universeIds=${value.uid}&returnPolicy=PlaceHolder&size=150x150&format=Png&isCircular=false`, {mode: 'cors'}).then(async response => {
-			response.json().then(async j => {
-				trueGameDiv.querySelector(".game-thumbnail").src = j.data[0].imageUrl;
-			});
-		});
+		trueGameDiv.querySelector(".game-thumbnail").src = `https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/roblox%20icons/${value.uid}.png`;
 	});
 }
 function makeTemplate() {
