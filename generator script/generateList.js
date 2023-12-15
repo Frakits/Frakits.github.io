@@ -7,7 +7,7 @@ let timer
 
 let listOptions = JSON.parse(fs.readFileSync("./generator script/list_options.json"));
 let progressCap = listOptions.games_to_recommend.length * 2;
-for (let universeId of listOptions.games_to_recommend) {
+listOptions.games_to_recommend.forEach((universeId, key) => {
 	for (let i=0; i<2; i++) {
 		setTimeout(() => {
 			get({host: `games.roblox.com`, agent: false, path: `/v1/games/recommendations/game/${universeId}?PaginationKey=startRowIndex_${i * 10}%2Cversion_&MaxRows=5000&IsTruncatedResultsEnabled=false`})
@@ -42,6 +42,6 @@ for (let universeId of listOptions.games_to_recommend) {
 					fs.writeFileSync("./final_listv2.json", JSON.stringify(games, null, 2));
 				}
 			})
-		}, 2000 * ((listOptions.games_to_recommend.indexOf(universeId)) * (i+1)));
+		}, 2000 * key);
 	}
-}
+})

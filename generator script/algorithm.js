@@ -1,4 +1,6 @@
 import fs from 'fs'
+import get from './httpsPromise.js';
+import https from 'https'
 let listOptions = JSON.parse(fs.readFileSync("./generator script/list_options.json").toString());
 export default(list) => {
 	let fixedList = Array.from(list);
@@ -53,7 +55,17 @@ export default(list) => {
 		fixedList[key] = [];
 	});
 	console.log(fixedList);
-	loop1:for (let game of cloneCopy2) {
+	cloneCopy2.forEach((game, key) => {
+		setTimeout(() => {
+			get(`https://thumbnails.roblox.com/v1/games/icons?universeIds=${game.uid}&returnPolicy=PlaceHolder&size=150x150&format=Png&isCircular=false`)
+			.then((value) => {
+				value = JSON.parse(value.body);
+				let file = fs.createWriteStream(`./roblox icons/${game.uid}.png`)
+				https.get(value.data[0].imageUrl, response => {
+					response.pipe(file);
+				})
+			})
+		}, 200 * key);
 		let isCategorized = false;
 		Object.entries(listOptions.categorizing_phase).forEach(([key, category]) => {
 			for (let word of category) {
@@ -67,6 +79,6 @@ export default(list) => {
 			}
 		});
 		if (!isCategorized) fixedList["Main Games"].push(game);
-	}
+	});
 	return fixedList;
 }
