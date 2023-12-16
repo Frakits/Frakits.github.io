@@ -14,6 +14,9 @@ export default(list) => {
 		//ELIMINATION PHASE
 		for (let word of listOptions.elimination_phase.blacklist) {
 			if (game.n.toLowerCase().indexOf(word) != -1 || game.d.toLowerCase().indexOf(word) != -1) {
+				for (let exception in listOptions.elimination_phase.exceptions) {
+					if (game.n.toLowerCase().indexOf(exception) != -1 || game.d.toLowerCase().indexOf(exception) != -1) continue loop1;
+				}
 				let indexToRemove = fixedList.findIndex(function(el) {
 					return el.id == game.id;
 				});

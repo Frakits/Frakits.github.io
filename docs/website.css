@@ -30,8 +30,8 @@ div {
 .game {
 	max-width: 100%;
 	background-color: rgb(10, 10, 10);
-	width: 4cm;
-	height: 5.5cm;
+	width: 150vmax;
+	height: 214px;
 	border-radius: 11px;
 	padding: 11px;
 	margin: 2px;
