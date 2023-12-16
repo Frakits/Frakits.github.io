@@ -98,30 +98,44 @@ button {
 	row-gap: 10px;
 	column-gap: 10px;
 	height: 241px;
-	overflow-x: hidden;
-	overflow-y: hidden;
 	display: grid;
+	overflow-x: scroll;
+	overflow-y: hidden;
 	grid-template-columns: repeat(30, 150px);
 	background-color: rgb(3, 3, 3);
 	padding: 10px;
 	border-radius: 16px;
 }
 
+@media (hover: hover) {
+    .game-category {
+		overflow-x: hidden !important;
+		overflow-y: hidden	!important;
+	}
+}
+
 .game-category:hover {
-	overflow-x: scroll;
+	overflow-x: scroll !important;
 	overflow-y: hidden;
 }
 
 div[id='Main Games Category'] {
 	height: 723px !important;
 	overflow-x: hidden;
-	overflow-y: hidden;
+	overflow-y: scroll;
 	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+}
+
+@media (hover: hover) {
+	div[id='Main Games Category'] {
+		overflow-x: hidden !important;
+		overflow-y: hidden !important;
+	}
 }
 
 div[id='Main Games Category']:hover {
 	overflow-x: hidden !important;
-	overflow-y: scroll;
+	overflow-y: scroll !important;
 }
 
 .game-category-text {
