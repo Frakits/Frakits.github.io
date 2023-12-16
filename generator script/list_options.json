@@ -1,5 +1,5 @@
 {
-	"games_to_recommend": {
+	"games_for_recommendation": {
 		"phighting": 2765784373,
 		"randomizer": 1858442722,
 		"bombline": 3813107352,
@@ -14,7 +14,9 @@
 		"digtochina": 3247673617,
 		"rapabilitytest": 3564089422,
 		"HOURS": 2032465638,
-		"blackout": 3326279937
+		"blackout": 3326279937,
+		"grapplesphere": 3884814614,
+		"popper": 3594727463
 	},
 	"elimination_phase": {
 		"blacklist": [
@@ -51,7 +53,10 @@
 			"changed",
 			"puro",
 			"granny",
-			"blade ball"
+			"blade ball",
+			"death ball",
+			"sonic.exe",
+			"weird strict dad"
 		]
 	},
 	"scoring_phase": {
@@ -132,7 +137,10 @@
 			"jujitsu",
 			"kitsune",
 			"kaizen",
-			"chainsaw man"
+			"chainsaw man",
+			"grand piece",
+			"megumi",
+			"the strongest battleground"
 		]
 	}
 }

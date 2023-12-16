@@ -6,8 +6,8 @@ let progress = 0;
 let timer = 0;
 
 let listOptions = JSON.parse(fs.readFileSync("./generator script/list_options.json"));
-let progressCap = Object.entries(listOptions.games_to_recommend).length * 2;
-Object.entries(listOptions.games_to_recommend).forEach(([key, universeId]) => {
+let progressCap = Object.entries(listOptions.games_for_recommendation).length * 2;
+Object.entries(listOptions.games_for_recommendation).forEach(([key, universeId]) => {
 	for (let i=0; i<2; i++) {
 		timer++;
 		setTimeout(() => {
