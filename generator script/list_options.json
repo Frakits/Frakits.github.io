@@ -15,7 +15,9 @@
 		"HOURS": 2032465638,
 		"blackout": 3326279937,
 		"grapplesphere": 3884814614,
-		"popper": 3594727463
+		"popper": 3594727463,
+		"wavedash": 4604972609,
+		"projectremix": 5193569427
 	},
 	"elimination_phase": {
 		"blacklist": [
@@ -139,7 +141,8 @@
 			"chainsaw man",
 			"grand piece",
 			"megumi",
-			"the strongest battleground"
+			"the strongest battleground",
+			"sakura"
 		]
 	}
 }
