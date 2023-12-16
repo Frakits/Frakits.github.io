@@ -12,16 +12,16 @@ export default(list) => {
 	let cloneCopy = Array.from(fixedList);
 	loop1:for (let game of cloneCopy) {
 		//ELIMINATION PHASE
-		for (let word of listOptions.elimination_phase.blacklist) {
+		loop2:for (let word of listOptions.elimination_phase.blacklist) {
 			if (game.n.toLowerCase().indexOf(word) != -1 || game.d.toLowerCase().indexOf(word) != -1) {
-				for (let exception in listOptions.elimination_phase.exceptions) {
-					if (game.n.toLowerCase().indexOf(exception) != -1 || game.d.toLowerCase().indexOf(exception) != -1) continue loop1;
+				for (let exception of listOptions.elimination_phase.exceptions) {
+					if (game.n.toLowerCase().indexOf(exception) != -1 || game.d.toLowerCase().indexOf(exception) != -1) break loop2;
 				}
 				let indexToRemove = fixedList.findIndex(function(el) {
 					return el.id == game.id;
 				});
 				fixedList.splice(indexToRemove, 1);
-				console.log(`deleted ${indexToRemove}`);
+				console.log(`deleted ${game.n}`);
 				continue loop1;
 			}
 		}
