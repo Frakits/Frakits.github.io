@@ -38,6 +38,12 @@ async function makeGameDiv(value) {
 		trueGameDiv.querySelector(".game-text").textContent = value.n;
 		trueGameDiv.title = value.n;
 		trueGameDiv.querySelector(".game-thumbnail").src = `https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/roblox%20icons/${value.uid}.png`;
+		if (value.new) {
+			let newDiv = await document.createElement("Div");
+			newDiv.className = "game-new-tag";
+			newDiv.textContent = "NEW";
+			trueGameDiv.appendChild(newDiv, trueGameDiv.querySelector(".game-thumbnail"));
+		}
 	});
 }
 function makeTemplate() {

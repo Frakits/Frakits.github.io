@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs, { readFile } from 'fs'
 import get from './httpsPromise.js';
 import https from 'https'
 let listOptions = JSON.parse(fs.readFileSync("./generator script/list_options.json").toString());
@@ -7,6 +7,21 @@ export default(list) => {
 	//clear duplicates before applying the algorithm
 	fixedList = fixedList.filter((game, i) => fixedList.findIndex(function(el) {return el.id == game.id;}) == i);
 	console.log("removed duplicates");
+
+	//give "NEW" tags
+	let tempList = JSON.parse(fs.readFileSync("./final_listv2-old.json"));
+	let oldList = [];
+	Object.entries(tempList).forEach(([key, game]) => {
+		for (let i of game) oldList.push(i);
+	});
+	for (let game of fixedList) {
+		if (oldList.findIndex(el => {return game.id == el.id}) == -1) {
+			game.new = true;
+			console.log("NEW");
+		}
+			
+	}
+
 
 	//ELIMINATION & SCORING PHASE
 	let cloneCopy = Array.from(fixedList);

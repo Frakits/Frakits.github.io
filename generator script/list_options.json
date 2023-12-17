@@ -29,7 +29,8 @@
 		"anokcar": 3957788363,
 		"aniphobia": 3229605936,
 		"rblxware": 236942121,
-		"platesoffate": 1609765104
+		"platesoffate": 1609765104,
+		"dreamworld": 1335746998
 	},
 	"elimination_phase": {
 		"blacklist": [
@@ -69,7 +70,9 @@
 			"blade ball",
 			"death ball",
 			"sonic.exe",
-			"weird strict dad"
+			"weird strict dad",
+			"adopt me",
+			"royale high"
 		],
 		"exceptions": [
 			"regretevator",
