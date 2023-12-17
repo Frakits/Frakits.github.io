@@ -34,7 +34,7 @@ async function makeGameDiv(value) {
 		let trueGameDiv = await newgameDiv.querySelector(".game");
 		resolve(newgameDiv);
 		newgameDiv.href = `https://www.roblox.com/games/${value.id}`
-		trueGameDiv.querySelector(".game-score-text").textContent = `score ${value.scr.toFixed(2)}`
+		trueGameDiv.querySelector(".game-score-text").textContent = `active: ${value.pls}`
 		trueGameDiv.querySelector(".game-text").textContent = value.n;
 		trueGameDiv.title = value.n;
 		trueGameDiv.querySelector(".game-thumbnail").src = `https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/roblox%20icons/${value.uid}.png`;
