@@ -42,7 +42,7 @@ async function makeGameDiv(value) {
 			let newDiv = await document.createElement("Div");
 			newDiv.className = "game-new-tag";
 			newDiv.textContent = "NEW";
-			trueGameDiv.appendChild(newDiv, trueGameDiv.querySelector(".game-thumbnail"));
+			trueGameDiv.insertBefore(newDiv, trueGameDiv.querySelector(".game-thumbnail"));
 		}
 	});
 }
