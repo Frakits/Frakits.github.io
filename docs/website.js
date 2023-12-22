@@ -72,7 +72,7 @@ function makeTemplate() {
 	let play = document.createElement("Div");
 	play.target = `blank`;
 	play.className = "game-play"
-	play.title = "Open Link To Roblox";
+	play.title = "Open Game Using Deeplink.";
 	let playimg = document.createElement("img")
 	playimg.src = "https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/docs/svg/play-button.svg"
 	playimg.className = "link-graphic"
