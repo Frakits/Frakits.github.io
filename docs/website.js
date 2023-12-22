@@ -1,6 +1,6 @@
 
 let gamelist = null;
-fetch("https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/final_listv2-old.json").then(response => {
+fetch("https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/final_listv2.json").then(response => {
 	response.json().then(async j => {
 		gamelist = j;
 		Object.entries(gamelist).forEach(async ([key, games]) => {

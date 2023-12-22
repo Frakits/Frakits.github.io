@@ -14,14 +14,17 @@ export default(list) => {
 	for (let arraychunk of chunk(array, 50)) {
 		timer++
 		setTimeout(() => {
-			get(`https://thumbnails.roblox.com/v1/games/icons?universeIds=${arraychunk.toString()}&returnPolicy=PlaceHolder&size=50x50&format=Png&isCircular=false`)
+			get(`https://thumbnails.roblox.com/v1/games/icons?universeIds=${arraychunk.toString()}&returnPolicy=PlaceHolder&size=150x150&format=Png&isCircular=false`)
 			.then(value => {
 				value = JSON.parse(value.body);
 				for (let game of value.data) {
 					let file = fs.createWriteStream(`./roblox icons/${game.targetId}.png`)
-					https.get(game.imageUrl, response => {
-						response.pipe(file);
-					})
+					timer++;
+					setTimeout(() => {
+						https.get(game.imageUrl, response => {
+							response.pipe(file);
+						})
+					}, 350 * timer)
 					console.log("saving icon..")
 				}
 			})

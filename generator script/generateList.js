@@ -8,10 +8,10 @@ let timer = 0;
 let listOptions = JSON.parse(fs.readFileSync("./generator script/list_options.json"));
 let progressCap = Object.entries(listOptions.games_for_recommendation).length * 2;
 
-if (fs.existsSync("./final_listv2-old.json")) {
-	fs.unlinkSync("./final_listv2-old.json")
-	fs.renameSync("./final_listv2.json", "./final_listv2-old.json")
-}
+//if (fs.existsSync("./final_listv2-old.json")) {
+//	fs.unlinkSync("./final_listv2-old.json")
+//	fs.renameSync("./final_listv2.json", "./final_listv2-old.json")
+//}
 Object.entries(listOptions.games_for_recommendation).forEach(([key, universeId]) => {
 	for (let i = 0; i < 2; i++) {
 		timer = timer + 1;
