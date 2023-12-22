@@ -1,6 +1,7 @@
 import fs, { readFile } from 'fs'
 import get from './httpsPromise.js';
 import https from 'https'
+import saveMedia from './mediaSaving.js'
 let listOptions = JSON.parse(fs.readFileSync("./generator script/list_options.json").toString());
 export default(list) => {
 	let fixedList = Array.from(list);
@@ -65,7 +66,8 @@ export default(list) => {
 	}
 
 	fixedList.sort((a, b) => b.scr - a.scr);
-	//CATEGORIZING PHASE
+
+	//CATEGORIZING AND SAVING PHASE 
 	let cloneCopy2 = Array.from(fixedList);
 	fixedList = {};
 	fixedList["Main Games"] = [];
@@ -73,17 +75,29 @@ export default(list) => {
 		fixedList[key] = [];
 	});
 	console.log(fixedList);
+	let tickingtime = 0;
 	cloneCopy2.forEach((game, key) => {
+		game.media = [];
+		tickingtime = key;
+		console.log("saving thumbnails");
 		setTimeout(() => {
-			get(`https://thumbnails.roblox.com/v1/games/icons?universeIds=${game.uid}&returnPolicy=PlaceHolder&size=150x150&format=Png&isCircular=false`)
+			get(`https://games.roblox.com/v2/games/${game.uid}/media`)
 			.then((value) => {
 				value = JSON.parse(value.body);
-				let file = fs.createWriteStream(`./roblox icons/${game.uid}.png`)
-				https.get(value.data[0].imageUrl, response => {
-					response.pipe(file);
-				})
+				for (let media of value.data) {
+					if (media.assetType == "Image") {
+						console.log("Image");
+						game.media.push(media.imageId);
+					}
+					else game.media.push(media.videoHash);
+				}
+				console.log(game.media);
+				if (key == cloneCopy2.length - 1) {
+					fs.writeFileSync("./final_listv2.json", JSON.stringify(fixedList, null, 2));
+					saveMedia(fixedList);
+				}
 			})
-		}, 200 * key);
+		}, 350 * key);
 		let isCategorized = false;
 		Object.entries(listOptions.categorizing_phase).forEach(([key, category]) => {
 			for (let word of category) {
@@ -98,5 +112,8 @@ export default(list) => {
 		});
 		if (!isCategorized) fixedList["Main Games"].push(game);
 	});
-	return fixedList;
+}
+function pause(milliseconds) {
+	var dt = new Date();
+	while ((new Date()) - dt <= milliseconds) { /* Do nothing */ }
 }
