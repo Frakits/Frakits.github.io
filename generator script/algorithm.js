@@ -11,6 +11,8 @@ export default(list) => {
 
 	//give "NEW" tags
 	let tempList = JSON.parse(fs.readFileSync("./final_listv2-old.json"));
+	let recomendlist = [];
+	Object.entries(listOptions.games_for_recommendation).forEach(([key, value]) => recomendlist.push(value));
 	let oldList = [];
 	Object.entries(tempList).forEach(([key, game]) => {
 		for (let i of game) oldList.push(i);
@@ -20,7 +22,7 @@ export default(list) => {
 			game.new = true;
 			console.log("NEW");
 		}
-			
+		if (recomendlist.includes(game.uid)) game.recommended = true;
 	}
 
 

@@ -31,6 +31,8 @@ template = makeTemplate();
 async function makeGameDiv(value) {
 	return new Promise(async (resolve, reject) => {
 		let newgameDiv = await template.cloneNode(true);
+		if (value.recommended)
+			newgameDiv.id = "recommend"
 		resolve(newgameDiv);
 		newgameDiv.addEventListener('click', function(e) {
 			window.open(`https://www.roblox.com/games/${value.id}`, 'blank');
