@@ -31,8 +31,13 @@ template = makeTemplate();
 async function makeGameDiv(value) {
 	return new Promise(async (resolve, reject) => {
 		let newgameDiv = await template.cloneNode(true);
-		if (value.recommended)
+		if (value.recommended) {
 			newgameDiv.id = "recommend"
+			let shine = document.createElement("img");
+			shine.src = "https://cdn.discordapp.com/attachments/1192569026505879653/1192772884398100524/ezgif-3-a995a4906f.gif?ex=65aa4b50&is=6597d650&hm=1fb4c739f8c715ecfaaa2b75bfd663bfabe3c32979c9def83aac5e7dbc8857cb&";
+			shine.className = "game-shine";
+			newgameDiv.appendChild(shine);
+		}
 		resolve(newgameDiv);
 		newgameDiv.addEventListener('click', function(e) {
 			window.open(`https://www.roblox.com/games/${value.id}`, 'blank');

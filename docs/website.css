@@ -45,16 +45,23 @@ div#recommend.game {
 	border:3px solid #0000;
 	border-radius:10px;
 	background:
-		linear-gradient(rgb(10, 10, 10) 0 0) padding-box,
+		linear-gradient(-45deg, rgb(15, 15, 0) 0%, rgb(15, 6, 0) 50%, rgb(15, 15, 0) 100%)  padding-box,
 		linear-gradient(-45deg, yellow 0%, rgb(255, 102, 0) 50%, yellow 100%) border-box;
 	transition: background 100ms ease-out, border 100ms ease-out;
 }
 
 div#recommend.game:hover {
 	background:
-		linear-gradient(rgb(20, 20, 20) 0 0) padding-box,
+		linear-gradient(-45deg, rgb(45, 45, 0) 0%, rgb(25, 7, 0) 50%, rgb(45, 45, 0) 100%) padding-box,
 		linear-gradient(-45deg, yellow 0%, rgb(255, 102, 0) 50%, yellow 100%) border-box;
 	transition: background 100ms ease-out, border 100ms ease-out;
+}
+
+.game-shine {
+	position: absolute;
+	width: 150px;
+	top: 0;
+	left: -5;
 }
 
 .game:hover {
