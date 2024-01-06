@@ -47,7 +47,7 @@ async function makeGameDiv(value) {
 			window.open(`roblox://placeId=${value.id}`, "_self");
 			e.stopPropagation();
 		}
-		newgameDiv.querySelector(".game-score-text").textContent = `active: ${value.pls}`
+		newgameDiv.querySelector(".game-score-text").textContent = `uid: ${value.uid}`
 		newgameDiv.querySelector(".game-text").textContent = value.n;
 		newgameDiv.title = value.n;
 		newgameDiv.querySelector(".game-thumbnail").src = `https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/roblox%20icons/${value.uid}.png`;

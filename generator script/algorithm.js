@@ -9,10 +9,11 @@ export default(list) => {
 	fixedList = fixedList.filter((game, i) => fixedList.findIndex(function(el) {return el.id == game.id;}) == i);
 	console.log("removed duplicates");
 
-	//give "NEW" tags
+	//give "NEW" and "gold status" tags
 	let tempList = JSON.parse(fs.readFileSync("./final_listv2-old.json"));
 	let recomendlist = [];
 	Object.entries(listOptions.games_for_recommendation).forEach(([key, value]) => recomendlist.push(value));
+	Object.entries(listOptions.hall_of_fame).forEach(([key, value]) => recomendlist.push(value));
 	let oldList = [];
 	Object.entries(tempList).forEach(([key, game]) => {
 		for (let i of game) oldList.push(i);
