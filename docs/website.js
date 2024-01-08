@@ -1,9 +1,34 @@
 
 let gamelist = null;
+let mainpage = document.querySelector(".main-page");
+let tagspages = null;
 fetch("https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/final_listv2.json").then(response => {
 	response.json().then(async j => {
 		gamelist = j;
+		let dropdown = document.querySelector(".game-tags-dropdown")
+		let defaultOption = document.createElement("option")
+		defaultOption.value = "All";
+		defaultOption.innerText = "All";
+		defaultOption.className = "game-tags-dropdown-option";
+		dropdown.appendChild(defaultOption);
+		dropdown.addEventListener("change", function() {
+			generateTagsPage(dropdown.value);
+		})
+		let tagarays = [];
+		for (tag of j.tagsList) {
+			let option = document.createElement("option")
+			option.value = tag;
+			option.innerText = tag;
+			option.className = "game-tags-dropdown-option";
+			dropdown.appendChild(option);
+			let tagDiv = document.createElement("Div");
+			tagDiv.id = tag;
+			tagDiv.className = "game-tag-page";
+			tagarays.push([tag, tagDiv]);
+		}
+		tagspages = new Map(tagarays);
 		Object.entries(gamelist).forEach(async ([key, games]) => {
+			if (key == "tagsList") return;
 			let div = null;
 			if (document.getElementById(key) == null) {
 				let category = document.createElement("Div");
@@ -15,16 +40,20 @@ fetch("https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/final_li
 				div.id = key;
 				div.appendChild(text);
 				div.appendChild(category);
-				document.body.appendChild(div);
+				document.body.querySelector(".main-page").appendChild(div);
 			} else div = document.getElementById(key);
 			for await (game of games) {
 				let spliceAmount = key == "Main Games" ? 600 : 30;
 				games = games.splice(spliceAmount, games.length - spliceAmount)
-				makeGameDiv(game).then(gamediv => div.querySelector('.game-category').appendChild(gamediv));
+				makeGameDiv(game).then(gamediv => {
+					div.querySelector('.game-category').appendChild(gamediv)
+					for (tag of game.t) {
+						tagspages.get(tag).appendChild(gamediv.cloneNode(true));
+					}
+				});
 			}
 		})
 	});
-
 });
 let template;
 template = makeTemplate();
@@ -47,7 +76,10 @@ async function makeGameDiv(value) {
 			window.open(`roblox://placeId=${value.id}`, "_self");
 			e.stopPropagation();
 		}
-		newgameDiv.querySelector(".game-score-text").textContent = `uid: ${value.uid}`
+		let tagGroup = document.createElement("Div");
+		tagGroup.className = "game-tag-group";
+		newgameDiv.appendChild(tagGroup);
+		for (tag of value.t) createTag(tag).then(tag => tagGroup.appendChild(tag));
 		newgameDiv.querySelector(".game-text").textContent = value.n;
 		newgameDiv.title = value.n;
 		newgameDiv.querySelector(".game-thumbnail").src = `https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/roblox%20icons/${value.uid}.png`;
@@ -58,6 +90,33 @@ async function makeGameDiv(value) {
 			newgameDiv.insertBefore(newDiv, newgameDiv.querySelector(".game-thumbnail"));
 		}
 	});
+}
+async function createTag(tag) {
+	return new Promise(async (resolve, reject) => {
+		let colors = new Map([
+			["Hall Of Fame", "#ffd900"],
+			["New To List", "#d42a2a"],
+			["Adventure", "#008cff"],
+			["All", "#616161"],
+			["Sports", "#6fe640"],
+			["Fighting", "#a31515"],
+			["RPG", "#37c493"],
+			["FPS", "#db5a23"],
+			["Military", "#235215"],
+			["Sci-Fi", "#529c95"],
+			["Comedy", "#6f1ab0"],
+			["Horror", "#5c5b3e"],
+			["Town and City", "#7dba1c"],
+			["Building", "#804620"],
+			["Naval", "#1a2a40"],
+			["Western", "#854e14"]
+		]);
+		let tagDiv = await document.createElement("Div");
+		tagDiv.className = "game-tag";
+		tagDiv.textContent = tag;
+		tagDiv.style.background = colors.get(tag);
+		resolve(tagDiv)
+	})
 }
 function makeTemplate() {
 	let gameDiv = document.createElement("Div");
@@ -139,4 +198,16 @@ Number.prototype.wrap = function( low, high ) {
 	if (number < low) number = high;
 	if (number > high) number = low
 	return number;
+}
+
+function generateTagsPage(tag) {
+	for ([key, tagser] of tagspages)
+		if (tagser.parentElement == document.body) document.body.removeChild(tagser);
+	console.log("H");
+	if (tag != "All") {
+		if (mainpage.parentElement == document.body) document.body.removeChild(mainpage);
+		document.body.appendChild(tagspages.get(tag))
+	}
+	else
+		document.body.insertBefore(mainpage, document.querySelector(".fullscreen"));
 }

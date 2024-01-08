@@ -37,7 +37,8 @@ Object.entries(listOptions.games_for_recommendation).forEach(([key, universeId])
 							cid: value.creatorId,
 							cn: value.creatorName,
 							ct: value.creatorType,
-							d: value.gameDescription
+							d: value.gameDescription,
+							t: []
 						}
 						games.push(properGameJson);
 						progress += 1 / Object.entries(jsonFromRoblox).length;

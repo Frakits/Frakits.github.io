@@ -22,9 +22,12 @@ div {
 	font-family: Gotham SSm A;
 }
 
-.main-page {
-	grid-template-columns: repeat(auto-fit, minmax(161px, 1fr));
+.game-tag-page {
+	row-gap: 10px;
+	column-gap: 10px;
 	display: grid;
+	grid-template-columns: repeat(30, 150px);
+	width: auto;
 }
 
 .game {
@@ -32,7 +35,7 @@ div {
 	max-width: 100%;
 	background-color: rgb(10, 10, 10);
 	width: 150vmax;
-	height: 233px;
+	height: 260px;
 	border-radius: 11px;
 	padding: 11px;
 	margin: 2px;
@@ -71,15 +74,21 @@ div#recommend.game:hover {
 	transition: background-color 100ms ease-out, border 100ms ease-out;
 }
 
-.game-new-tag {
-	margin: -6px -5px -10px;
-	border-radius: 40px;
-	background: #d42a2a;
+.game-tag {
+	margin: 3px;
+	white-space: nowrap;
+	border-radius: 8px;
 	text-align: center;
-	width: 60px;
-	height: 18px;
-	font-size: 16px;
+	width: min-content;
+	padding: 2px;
+	height: auto;
+	font-size: 12px;
 	position: relative
+}
+
+.game-tag-group {
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .game-thumbnail {

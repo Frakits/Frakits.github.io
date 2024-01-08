@@ -29,25 +29,25 @@ export default(list) => {
 				}
 			})
 		}, 350 * timer)
-		setTimeout(() => {
-			get(`https://thumbnails.roblox.com/v1/games/multiget/thumbnails?universeIds=${arraychunk.toString()}&countPerUniverse=999&defaults=true&size=768x432&format=Png&isCircular=false`)
-			.then(value => {
-				let timer = 0;
-				value = JSON.parse(value.body);
-				for (let game of value.data) {
-					for (let thumbnail of game.thumbnails) {
-						timer++;
-						let file = fs.createWriteStream(`./roblox icons/${game.universeId}-media/${thumbnail.targetId}.png`)
-						setTimeout(() => {
-							https.request(thumbnail.imageUrl, response => {
-								response.pipe(file);
-							}).end();
-							console.log("saving thumbnail..")
-						}, 350 * timer);
-					}
-				}
-			})
-		}, 350 * (array.length + timer));
+		//setTimeout(() => {
+		//	get(`https://thumbnails.roblox.com/v1/games/multiget/thumbnails?universeIds=${arraychunk.toString()}&countPerUniverse=999&defaults=true&size=768x432&format=Png&isCircular=false`)
+		//	.then(value => {
+		//		let timer = 0;
+		//		value = JSON.parse(value.body);
+		//		for (let game of value.data) {
+		//			for (let thumbnail of game.thumbnails) {
+		//				timer++;
+		//				let file = fs.createWriteStream(`./roblox icons/${game.universeId}-media/${thumbnail.targetId}.png`)
+		//				setTimeout(() => {
+		//					https.request(thumbnail.imageUrl, response => {
+		//						response.pipe(file);
+		//					}).end();
+		//					console.log("saving thumbnail..")
+		//				}, 350 * timer);
+		//			}
+		//		}
+		//	})
+		//}, 350 * (array.length + timer));
 	}
 }
 export function chunk(arr, size) {
