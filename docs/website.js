@@ -27,6 +27,7 @@ fetch("https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/final_li
 			tagarays.push([tag, tagDiv]);
 		}
 		tagspages = new Map(tagarays);
+		console.log(tagspages);
 		Object.entries(gamelist).forEach(async ([key, games]) => {
 			if (key == "tagsList") return;
 			let div = null;
@@ -43,12 +44,13 @@ fetch("https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/final_li
 				document.body.querySelector(".main-page").appendChild(div);
 			} else div = document.getElementById(key);
 			for await (game of games) {
-				let spliceAmount = key == "Main Games" ? 600 : 30;
-				games = games.splice(spliceAmount, games.length - spliceAmount)
+				let taggers = Array.from(game.t);
+				//let spliceAmount = key == "Main Games" ? 600 : 30;
+				//games = games.splice(spliceAmount, games.length - spliceAmount)
 				makeGameDiv(game).then(gamediv => {
 					div.querySelector('.game-category').appendChild(gamediv)
-					for (tag of game.t) {
-						tagspages.get(tag).appendChild(gamediv.cloneNode(true));
+					for (tager of taggers) {
+						tagspages.get(tager).appendChild(gamediv.cloneNode(true));
 					}
 				});
 			}
@@ -69,7 +71,6 @@ async function makeGameDiv(value) {
 			shine.className = "game-shine";
 			newgameDiv.appendChild(shine);
 		}
-		resolve(newgameDiv);
 		newgameDiv.addEventListener('click', function(e) {
 			window.open(`https://www.roblox.com/games/${value.id}`, 'blank');
 			return false;
@@ -78,6 +79,7 @@ async function makeGameDiv(value) {
 			window.open(`roblox://placeId=${value.id}`, "_self");
 			e.stopPropagation();
 		}
+		resolve(newgameDiv);
 		let tagGroup = document.createElement("Div");
 		tagGroup.className = "game-tag-group";
 		newgameDiv.appendChild(tagGroup);
