@@ -107,7 +107,17 @@ div#recommend.game:hover {
 	padding: 2px;
 	height: auto;
 	font-size: 12px;
-	position: relative
+	position: relative;
+	transition: 0.05s filter linear, 0.05s -webkit-filter linear;
+}
+
+.game-tag:hover {
+	filter: brightness(3);
+}
+
+.game-tag:active {
+	transition: 0s filter linear, 0s -webkit-filter linear;
+	filter: brightness(0.45);
 }
 
 .game-tag-group {

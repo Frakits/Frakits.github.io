@@ -2,6 +2,7 @@
 let gamelist = null;
 let mainpage = document.querySelector(".main-page");
 let tagspages = null;
+let gameInfo = [];
 fetch("https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/final_listv2.json").then(response => {
 	response.json().then(async j => {
 		gamelist = j;
@@ -49,9 +50,7 @@ fetch("https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/final_li
 				//games = games.splice(spliceAmount, games.length - spliceAmount)
 				makeGameDiv(game).then(gamediv => {
 					div.querySelector('.game-category').appendChild(gamediv)
-					for (tager of taggers) {
-						tagspages.get(tager).appendChild(gamediv.cloneNode(true));
-					}
+					gameInfo.push([gamediv, [taggers, div.querySelector('.game-category')]]);
 				});
 			}
 		})
@@ -64,7 +63,7 @@ template = makeTemplate();
 async function makeGameDiv(value) {
 	return new Promise(async (resolve, reject) => {
 		let newgameDiv = await template.cloneNode(true);
-		if (value.recommended) {
+		if (value.t.includes("Hall Of Fame")) {
 			newgameDiv.id = "recommend"
 			let shine = document.createElement("img");
 			shine.src = "https://cdn.discordapp.com/attachments/1192569026505879653/1192772884398100524/ezgif-3-a995a4906f.gif?ex=65aa4b50&is=6597d650&hm=1fb4c739f8c715ecfaaa2b75bfd663bfabe3c32979c9def83aac5e7dbc8857cb&";
@@ -79,11 +78,10 @@ async function makeGameDiv(value) {
 			window.open(`roblox://placeId=${value.id}`, "_self");
 			e.stopPropagation();
 		}
-		resolve(newgameDiv);
 		let tagGroup = document.createElement("Div");
 		tagGroup.className = "game-tag-group";
 		newgameDiv.appendChild(tagGroup);
-		for (tag of value.t) createTag(tag).then(tag => tagGroup.appendChild(tag));
+		for (tag of value.t) await tagGroup.appendChild(createTag(tag))
 		newgameDiv.querySelector(".game-text").textContent = value.n;
 		newgameDiv.title = value.n;
 		newgameDiv.querySelector(".game-thumbnail").src = `https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/roblox%20icons/${value.uid}.png`;
@@ -93,34 +91,39 @@ async function makeGameDiv(value) {
 			newDiv.textContent = "NEW";
 			newgameDiv.insertBefore(newDiv, newgameDiv.querySelector(".game-thumbnail"));
 		}
+		resolve(newgameDiv);
 	});
 }
-async function createTag(tag) {
-	return new Promise(async (resolve, reject) => {
-		let colors = new Map([
-			["Hall Of Fame", "#ffd900"],
-			["New To List", "#d42a2a"],
-			["Adventure", "#008cff"],
-			["All", "#616161"],
-			["Sports", "#6fe640"],
-			["Fighting", "#a31515"],
-			["RPG", "#37c493"],
-			["FPS", "#db5a23"],
-			["Military", "#235215"],
-			["Sci-Fi", "#529c95"],
-			["Comedy", "#6f1ab0"],
-			["Horror", "#5c5b3e"],
-			["Town and City", "#7dba1c"],
-			["Building", "#804620"],
-			["Naval", "#1a2a40"],
-			["Western", "#854e14"]
-		]);
-		let tagDiv = await document.createElement("Div");
-		tagDiv.className = "game-tag";
-		tagDiv.textContent = tag;
-		tagDiv.style.background = colors.get(tag);
-		resolve(tagDiv)
-	})
+function createTag(tag) {
+	let colors = new Map([
+		["Hall Of Fame", "#b5a12b"],
+		["New To List", "#d42a2a"],
+		["Adventure", "#008cff"],
+		["All", "#616161"],
+		["Sports", "#6fe640"],
+		["Fighting", "#a31515"],
+		["RPG", "#37c493"],
+		["FPS", "#db5a23"],
+		["Military", "#235215"],
+		["Sci-Fi", "#529c95"],
+		["Comedy", "#6f1ab0"],
+		["Horror", "#5c5b3e"],
+		["Town and City", "#7dba1c"],
+		["Building", "#804620"],
+		["Naval", "#1a2a40"],
+		["Western", "#854e14"]
+	]);
+	let tagDiv = document.createElement("Div");
+	tagDiv.title = "Click to search games of this tag"
+	tagDiv.className = "game-tag";
+	tagDiv.textContent = tag;
+	tagDiv.style.background = colors.get(tag);
+	tagDiv.addEventListener("click", e => {
+		document.querySelector(".game-tags-dropdown").value = tag;
+		document.querySelector(".game-tags-dropdown").dispatchEvent(new Event('change'));
+		e.stopPropagation();
+	});
+	return tagDiv
 }
 function makeTemplate() {
 	let gameDiv = document.createElement("Div");
@@ -204,14 +207,21 @@ Number.prototype.wrap = function( low, high ) {
 	return number;
 }
 
-function generateTagsPage(tag) {
+async function generateTagsPage(tag) {
 	for ([key, tagser] of tagspages)
 		if (tagser.parentElement == document.body) document.body.removeChild(tagser);
 	console.log("H");
 	if (tag != "All") {
 		if (mainpage.parentElement == document.body) document.body.removeChild(mainpage);
 		document.body.appendChild(tagspages.get(tag))
+		for (game of gameInfo) {
+			if (game[1][0].includes(tag)) tagspages.get(tag).appendChild(game[0]);
+		}
 	}
-	else
-		document.body.insertBefore(mainpage, document.querySelector(".fullscreen"));
+	else {
+		document.body.appendChild(mainpage);
+		for (game of gameInfo) {
+			game[1][1].appendChild(game[0]);
+		}
+	}
 }
