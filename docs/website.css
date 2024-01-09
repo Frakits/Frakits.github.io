@@ -25,8 +25,8 @@ div {
 .game-tag-page {
 	row-gap: 10px;
 	column-gap: 10px;
-	display: grid;
-	grid-template-columns: repeat(30, 150px);
+	display: flex;
+	flex-wrap: wrap;
 	width: auto;
 }
 
@@ -34,7 +34,7 @@ div {
 	position: relative;
 	max-width: 100%;
 	background-color: rgb(10, 10, 10);
-	width: 150vmax;
+	width: 150px;
 	height: 260px;
 	border-radius: 11px;
 	padding: 11px;
@@ -324,7 +324,7 @@ button {
 	width: 93%;
 	row-gap: 10px;
 	column-gap: 10px;
-	height: 260px;
+	height: auto;
 	display: grid;
 	overflow-x: scroll;
 	overflow-y: hidden;
@@ -334,35 +334,11 @@ button {
 	border-radius: 16px;
 }
 
-@media (hover: hover) {
-    .game-category {
-		overflow-x: hidden !important;
-		overflow-y: hidden	!important;
-	}
-}
-
-.game-category:hover {
-	overflow-x: scroll !important;
-	overflow-y: hidden;
-}
-
 div[id='Main Games Category'] {
 	height: 723px !important;
 	overflow-x: hidden;
 	overflow-y: scroll;
 	grid-template-columns: repeat(auto-fit, 150px) !important;
-}
-
-@media (hover: hover) {
-	div[id='Main Games Category'] {
-		overflow-x: hidden !important;
-		overflow-y: hidden !important;
-	}
-}
-
-div[id='Main Games Category']:hover {
-	overflow-x: hidden !important;
-	overflow-y: scroll !important;
 }
 
 .game-category-text {
@@ -376,6 +352,7 @@ div[id='Main Games Category']:hover {
 	width: 6px;
 	border-radius: 4px;
 	scrollbar-width: 2px;
+	overflow: overlay;
 	border: 20px
 }
 
