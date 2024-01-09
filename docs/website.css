@@ -22,11 +22,29 @@ div {
 	font-family: Gotham SSm A;
 }
 
+.game-tags-dropdown {
+	font-size: 16px;
+	width: 150px;
+	border: none;
+	border-radius: 5px;
+	padding: 10px;
+	background: rgb(10, 10, 10);
+	color: white;
+	outline: 2px solid rgba(255, 255, 255, 0.05);
+}
+
+.game-tags-dropdown:hover {
+	cursor: pointer;
+	background-color: rgb(20, 20, 20);
+	outline: 2px solid white;
+	transition: background-color 100ms ease-out, border 100ms ease-out;
+}
+
 .game-tag-page {
 	row-gap: 10px;
 	column-gap: 10px;
-	display: flex;
-	flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 	width: auto;
 }
 
@@ -144,9 +162,9 @@ div#recommend.game:hover {
 	width: 100%;
 	height: 100%;
 	position: fixed;
-	background: #00000050;
+	background: #020202;
 	z-index: 999;
-	visibility: hidden;
+	transition: opacity 0.2s ease-out;
 }
 
 .game-display {
@@ -338,7 +356,7 @@ div[id='Main Games Category'] {
 	height: 723px !important;
 	overflow-x: hidden;
 	overflow-y: scroll;
-	grid-template-columns: repeat(auto-fit, 150px) !important;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
 }
 
 .game-category-text {

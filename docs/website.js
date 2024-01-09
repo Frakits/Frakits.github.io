@@ -53,6 +53,8 @@ fetch("https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/final_li
 				});
 			}
 		})
+		document.querySelector(".fullscreen").style.opacity = 0;
+		document.querySelector(".fullscreen").style.pointerEvents = "none";
 	});
 });
 let template;

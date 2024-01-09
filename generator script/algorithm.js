@@ -36,7 +36,7 @@ export default(list) => {
 				let actualGame = fixedList[fixedList.findIndex(function(el) {
 					return el.uid == game.id;
 				})]
-				actualGame.t.push(game.genre);
+				actualGame.t.push(game.genre == "All" ? "Uncategorized" : game.genre);
 				if (game.createVipServersAllowed) 
 					actualGame.t.push("Vip Server Available")
 
@@ -53,7 +53,7 @@ export default(list) => {
 				let tagsList = [];
 				tagsList.push("Hall Of Fame");
 				tagsList.push("New To List");
-				for (let game of fixedList) for (let tag of game.t) if (!tagsList.includes(tag)) tagsList.push(tag);
+				for (let game of fixedList) for (let tag of game.t) if (!tagsList.includes(tag)) tagsList.push(tag == "All" ? "Uncategorized" : tag);
 
 				//ELIMINATION & SCORING PHASE
 				let cloneCopy = Array.from(fixedList);
