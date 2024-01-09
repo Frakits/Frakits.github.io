@@ -85,7 +85,7 @@ async function makeGameDiv(value) {
 		newgameDiv.querySelector(".game-text").textContent = value.n;
 		newgameDiv.title = value.n;
 		newgameDiv.querySelector(".game-thumbnail").src = `https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/roblox%20icons/${value.uid}.png`;
-		if (value.new) {
+		if (value.t.includes("New To List")) {
 			let newDiv = await document.createElement("Div");
 			newDiv.className = "game-new-tag";
 			newDiv.textContent = "NEW";

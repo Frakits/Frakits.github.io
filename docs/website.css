@@ -125,6 +125,17 @@ div#recommend.game:hover {
 	flex-wrap: wrap;
 }
 
+.game-new-tag {
+	margin: -6px -5px -10px;
+	border-radius: 40px;
+	background: #d42a2a;
+	text-align: center;
+	width: 60px;
+	height: 18px;
+	font-size: 16px;
+	position: relative
+}
+
 .game-thumbnail {
 	border-radius: 8px;
 	width: 100%;
