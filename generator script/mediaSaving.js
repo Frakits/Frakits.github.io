@@ -5,7 +5,7 @@ import https from 'https'
 export default(list) => {
 	if (list == null) list = JSON.parse(fs.readFileSync("./final_listv2.json"))
 	let array = [];
-	Object.entries(list).forEach(([key, value]) => {for (let game of value) {
+	Object.entries(list).forEach(([key, value]) => {if (key != "tagsList") for (let game of value) {
 		array.push(game.uid)
 		if (!fs.existsSync(`./roblox icons/${game.uid}-media`)) fs.mkdirSync(`./roblox icons/${game.uid}-media`);
 	}});
