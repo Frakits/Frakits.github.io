@@ -81,7 +81,7 @@ async function makeGameDiv(value) {
 		let tagGroup = document.createElement("Div");
 		tagGroup.className = "game-tag-group";
 		newgameDiv.appendChild(tagGroup);
-		for (tag of value.t) await tagGroup.appendChild(createTag(tag))
+		for (tag of value.t) createTag(tag).then(tag => tagGroup.appendChild(tag));
 		newgameDiv.querySelector(".game-text").textContent = value.n;
 		newgameDiv.title = value.n;
 		newgameDiv.querySelector(".game-thumbnail").src = `https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/roblox%20icons/${value.uid}.png`;
@@ -94,36 +94,38 @@ async function makeGameDiv(value) {
 		resolve(newgameDiv);
 	});
 }
-function createTag(tag) {
-	let colors = new Map([
-		["Hall Of Fame", "#b5a12b"],
-		["New To List", "#d42a2a"],
-		["Adventure", "#008cff"],
-		["All", "#616161"],
-		["Sports", "#6fe640"],
-		["Fighting", "#a31515"],
-		["RPG", "#37c493"],
-		["FPS", "#db5a23"],
-		["Military", "#235215"],
-		["Sci-Fi", "#529c95"],
-		["Comedy", "#6f1ab0"],
-		["Horror", "#5c5b3e"],
-		["Town and City", "#7dba1c"],
-		["Building", "#804620"],
-		["Naval", "#1a2a40"],
-		["Western", "#854e14"]
-	]);
-	let tagDiv = document.createElement("Div");
-	tagDiv.title = "Click to search games of this tag"
-	tagDiv.className = "game-tag";
-	tagDiv.textContent = tag;
-	tagDiv.style.background = colors.get(tag);
-	tagDiv.addEventListener("click", e => {
-		document.querySelector(".game-tags-dropdown").value = tag;
-		document.querySelector(".game-tags-dropdown").dispatchEvent(new Event('change'));
-		e.stopPropagation();
-	});
-	return tagDiv
+async function createTag(tag) {
+	return new Promise(async (resolve, reject) => {
+		let colors = new Map([
+			["Hall Of Fame", "#ffd900"],
+			["New To List", "#d42a2a"],
+			["Adventure", "#008cff"],
+			["All", "#616161"],
+			["Sports", "#6fe640"],
+			["Fighting", "#a31515"],
+			["RPG", "#37c493"],
+			["FPS", "#db5a23"],
+			["Military", "#235215"],
+			["Sci-Fi", "#529c95"],
+			["Comedy", "#6f1ab0"],
+			["Horror", "#5c5b3e"],
+			["Town and City", "#7dba1c"],
+			["Building", "#804620"],
+			["Naval", "#1a2a40"],
+			["Western", "#854e14"]
+		]);
+		let tagDiv = await document.createElement("Div");
+		tagDiv.title = "Click to search games of this tag"
+		tagDiv.className = "game-tag";
+		tagDiv.textContent = tag;
+		tagDiv.style.background = colors.get(tag);
+		tagDiv.addEventListener("click", e => {
+			document.querySelector(".game-tags-dropdown").value = tag;
+			document.querySelector(".game-tags-dropdown").dispatchEvent(new Event('change'));
+			e.stopPropagation();
+		});
+		resolve(tagDiv)
+	})
 }
 function makeTemplate() {
 	let gameDiv = document.createElement("Div");
