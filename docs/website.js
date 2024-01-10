@@ -231,7 +231,8 @@ async function generateTagsPage(tag) {
 
 async function handleScroll(div) {
 	console.log("scrolled");
-	for (game of div.children) {
+	console.log(div.children);
+	for (game of Object.values(div.children).toReversed()) {
 		game.style.visibility = div.scrollTop > game.getBoundingClientRect().top + game.offsetTop ? "hidden" : "visible"
 	}
 }
