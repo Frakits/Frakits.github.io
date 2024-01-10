@@ -43,6 +43,7 @@ fetch("https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/final_li
 				div.appendChild(text);
 				div.appendChild(category);
 				document.body.querySelector(".main-page").appendChild(div);
+				category.addEventListener("scroll", e=>{handleScroll(category)})
 			} else div = document.getElementById(key);
 			for await (game of games) {
 				let taggers = Array.from(game.t);
@@ -85,7 +86,7 @@ async function makeGameDiv(value) {
 		for (tag of value.t) createTag(tag).then(tag => tagGroup.appendChild(tag));
 		newgameDiv.querySelector(".game-text").textContent = value.n;
 		newgameDiv.title = value.n;
-		newgameDiv.querySelector(".game-thumbnail").src = `https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/roblox%20icons/${value.uid}.png`;
+		newgameDiv.querySelector(".game-thumbnail").src = `https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/roblox%20icons/${value.uid}.webp`;
 		if (value.t.includes("New To List")) {
 			let newDiv = await document.createElement("Div");
 			newDiv.className = "game-new-tag";
@@ -133,7 +134,6 @@ function makeTemplate() {
 	gameDiv.className = "game";
 	let img = document.createElement("img");
 	img.className = "game-thumbnail";
-	img.setAttribute("loading", "lazy");
 	img.src = "https://cdn.discordapp.com/attachments/1127629189793722448/1184536209716953108/loading-63.gif?ex=658c5450&is=6579df50&hm=0321032d68ec41182f8f9393564d2382546f0315954f154b0eebfc3f9236e5ab&";
 	img.width = 150;
 	img.height = 150;
@@ -226,5 +226,12 @@ async function generateTagsPage(tag) {
 		for (game of gameInfo) {
 			game[1][1].appendChild(game[0]);
 		}
+	}
+}
+
+async function handleScroll(div) {
+	console.log("scrolled");
+	for (game of div.children) {
+		game.style.visibility = div.scrollTop > game.getBoundingClientRect().top + game.offsetTop ? "hidden" : "visible"
 	}
 }

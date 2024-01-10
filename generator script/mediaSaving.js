@@ -1,7 +1,7 @@
 import fs from 'fs'
-import run from './mediaSaving.js'
 import get from './httpsPromise.js'
 import https from 'https'
+import sharp from 'sharp';
 export default(list) => {
 	if (list == null) list = JSON.parse(fs.readFileSync("./final_listv2.json"))
 	let array = [];
@@ -18,11 +18,15 @@ export default(list) => {
 			.then(value => {
 				value = JSON.parse(value.body);
 				for (let game of value.data) {
-					let file = fs.createWriteStream(`./roblox icons/${game.targetId}.png`)
+					let file = fs.createWriteStream(`./roblox icons/${game.targetId}.webp`)
 					timer++;
 					setTimeout(() => {
 						https.get(game.imageUrl, response => {
-							response.pipe(file);
+							let data = []
+							response.on("data", chunk => data.push(chunk)).on("end", () => {
+								let buffer = Buffer.concat(data);
+								sharp(buffer).webp().pipe(file);
+							})
 						})
 					}, 350 * timer)
 					console.log("saving icon..")

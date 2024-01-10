@@ -48,7 +48,6 @@ div {
 .game-tag-page {
 	background-color: rgb(3, 3, 3);
 	padding: 10px;
-	border-radius: 16px;
 	margin: 2px;
 	margin-top: 10px;
 	row-gap: 10px;
@@ -68,7 +67,7 @@ div {
 	padding: 11px;
 	margin: 2px;
 	outline: 2px solid rgba(255, 255, 255, 0.05);
-	transition: background-color 100ms ease-out, border 100ms ease-out;
+	transition: background-color 100ms ease-out;
 	transform-style: preserve-3d;
 }
 
@@ -78,14 +77,12 @@ div#recommend.game {
 	background:
 		linear-gradient(-45deg, rgb(15, 15, 0) 0%, rgb(15, 6, 0) 50%, rgb(15, 15, 0) 100%)  padding-box,
 		linear-gradient(-45deg, yellow 0%, rgb(255, 102, 0) 50%, yellow 100%) border-box;
-	transition: background 100ms ease-out, border 100ms ease-out;
 }
 
 div#recommend.game:hover {
 	background:
 		linear-gradient(-45deg, rgb(45, 45, 0) 0%, rgb(25, 7, 0) 50%, rgb(45, 45, 0) 100%) padding-box,
 		linear-gradient(-45deg, yellow 0%, rgb(255, 102, 0) 50%, yellow 100%) border-box;
-	transition: background 100ms ease-out, border 100ms ease-out;
 }
 
 .game-shine {
@@ -380,7 +377,6 @@ button {
 	grid-template-columns: repeat(30, 150px);
 	background-color: rgb(3, 3, 3);
 	padding: 10px;
-	border-radius: 16px;
 }
 
 div[id='Main Games Category'] {

@@ -14,5 +14,9 @@
   ],
   "author": "me",
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "sharp": "^0.33.1",
+    "webp-converter": "^2.3.3"
+  }
 }
