@@ -28,7 +28,6 @@ fetch("https://raw.githubusercontent.com/Frakits/Frakits.github.io/main/final_li
 			tagarays.push([tag, tagDiv]);
 		}
 		tagspages = new Map(tagarays);
-		console.log(tagspages);
 		Object.entries(gamelist).forEach(async ([key, games]) => {
 			if (key == "tagsList") return;
 			let div = null;
@@ -213,12 +212,13 @@ Number.prototype.wrap = function( low, high ) {
 async function generateTagsPage(tag) {
 	for ([key, tagser] of tagspages)
 		if (tagser.parentElement == document.body) document.body.removeChild(tagser);
-	console.log("H");
 	if (tag != "All") {
 		if (mainpage.parentElement == document.body) document.body.removeChild(mainpage);
 		document.body.appendChild(tagspages.get(tag))
 		for (game of gameInfo) {
 			if (game[1][0].includes(tag)) tagspages.get(tag).appendChild(game[0]);
+			game[1][1].scrollTop = 0;
+			handleScroll(game[1][1]);
 		}
 	}
 	else {
@@ -230,8 +230,6 @@ async function generateTagsPage(tag) {
 }
 
 async function handleScroll(div) {
-	console.log("scrolled");
-	console.log(div.children);
 	for (game of Object.values(div.children).toReversed()) {
 		game.style.visibility = div.scrollTop > game.getBoundingClientRect().top + game.offsetTop ? "hidden" : "visible"
 	}
