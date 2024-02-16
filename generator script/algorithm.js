@@ -129,7 +129,7 @@ export default(list) => {
 								saveMedia(fixedList);
 							}
 						})
-					}, 350 * key);
+					}, 500 * key);
 					let isCategorized = false;
 					Object.entries(listOptions.categorizing_phase).forEach(([key, category]) => {
 						for (let word of category) {
